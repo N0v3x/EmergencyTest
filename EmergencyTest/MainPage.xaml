@@ -1,0 +1,66 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EmergencyTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Custom1="using:Microsoft.Xaml.Interactions.Core" 
+    xmlns:Custom2="using:Microsoft.Xaml.Interactions.Media"
+    x:Class="EmergencyTest.MainPage"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="showStoryboard">
+            <DoubleAnimation From="-500" To="0" Duration="0:0:0.5" Storyboard.TargetName="gridTranslate" Storyboard.TargetProperty="TranslateX"/>
+        </Storyboard>
+        <Storyboard x:Name="hideStoryboard">
+            <DoubleAnimation From="0" To="-500" Duration="0:0:0.5" Storyboard.TargetName="gridTranslate" Storyboard.TargetProperty="TranslateX"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!--
+            Emergency button layout
+        -->
+        <Grid Width="500" Height="500" HorizontalAlignment="Left" >
+            <Grid.Background>
+                <AcrylicBrush TintColor="#CC686869" Opacity="1" TintOpacity="0.5" BackgroundSource="Backdrop"/>
+            </Grid.Background>
+            <Grid.RenderTransform>
+                <CompositeTransform x:Name="gridTranslate" TranslateX="-500"/>
+            </Grid.RenderTransform>
+            <Button Content="Emergency stop" HorizontalAlignment="Center" VerticalAlignment="Center" Height="176" Width="288" Background="Red">
+                <Custom:Interaction.Behaviors>
+                    <Custom1:EventTriggerBehavior EventName="Click">
+                        <Custom2:ControlStoryboardAction Storyboard="{StaticResource hideStoryboard}"/>
+                    </Custom1:EventTriggerBehavior>
+                </Custom:Interaction.Behaviors>
+            </Button>
+
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="Start" Content="Start" Background="#3309F31D" Margin="0,10,20,0">
+                    <Custom:Interaction.Behaviors>
+                        <Custom1:EventTriggerBehavior EventName="Click">
+                            <Custom2:ControlStoryboardAction Storyboard="{StaticResource showStoryboard}"/>
+                        </Custom1:EventTriggerBehavior>
+                    </Custom:Interaction.Behaviors>
+                </Button>
+                <Button x:Name="Stop" Content="Stop" Background="#33E40E0E" Margin="0,10,20,0">
+                    <Custom:Interaction.Behaviors>
+                        <Custom1:EventTriggerBehavior EventName="Click">
+                            <Custom2:ControlStoryboardAction Storyboard="{StaticResource hideStoryboard}"/>
+                        </Custom1:EventTriggerBehavior>
+                    </Custom:Interaction.Behaviors>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Page>
